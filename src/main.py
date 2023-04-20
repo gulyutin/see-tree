@@ -82,9 +82,6 @@ async def recoginze(
         bytes_img = data.reshape((int(h), int(w), -1))
 
         result_image = Image.fromarray(bytes_img).convert('RGB')
-        new_width = int(result_image.width * 2)
-        new_height = int(result_image.height * 2)
-        # result_image = result_image.resize((new_width, new_height), Image.ANTIALIAS)
         new_image = Image.new('RGB', (result_image.height, result_image.width), color=(255, 255, 255))
         x = (new_image.width - result_image.width) // 2
         y = (new_image.height - result_image.height) // 2
