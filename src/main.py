@@ -1,3 +1,5 @@
+from fastapi.middleware.cors import CORSMiddleware
+
 import ssl
 import certifi
 
@@ -31,6 +33,21 @@ log_config["formatters"]["default"]["fmt"] = "%(asctime)s - %(levelname)s - %(me
 
 fast_api_app = FastAPI(openapi_url=None)
 
+origins = [
+    "http://localhost",
+    "http://localhost:8081",
+    "http://127.0.0.1",
+    "http://127.0.0.1:8081",
+]
+
+fast_api_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 _api_app = FastAPI(
     title="DeepForest App",
     version="1.0.0",
@@ -58,6 +75,7 @@ async def recoginze(
         rcParams['figure.figsize'] = 20, 40
 
         numpydata = np.asarray(image)
+        numpydata = numpydata.astype('float32')
 
         boxes = model.predict_image(numpydata)
         boxes.head()

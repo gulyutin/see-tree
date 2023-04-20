@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>See-tree: система обработки изображений лесов</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <header>
-        <h1>See-tree: система обработки изображений лесов</h1>
+        <div class="logo">
+          <img
+            src="https://about.sfu-kras.ru/files/about/logo-ru-en-gorizontal-max4x.png"
+            alt="Logo"
+            width="150"
+          />
+        </div>
+        <h1>See-tree</h1>
+        <sub>Система обработки изображений лесов</sub>
       </header>
       <main>
-        <form action="http://localhost:8080/api/v1/recognize" method="post" enctype="multipart/form-data">
+        <form id="form" enctype="multipart/form-data">
           <div class="form-group">
             <label for="file">Выберите изображение для обработки:</label>
-            <input type="file" id="file" name="file" accept=".jpg, .jpeg">
+            <input type="file" id="file" name="file" accept=".jpg, .jpeg" />
           </div>
           <div class="form-group">
-            <button type="submit">Отправить</button>
+            <button type="submit" id="submit-btn">Отправить</button>
           </div>
         </form>
+        <div id="progress" style="display: none;">
+          <div id="bar" style="width: 0%; background-color: green; height: 20px;"></div>
+        </div>
+        <div id="result"></div>
       </main>
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
