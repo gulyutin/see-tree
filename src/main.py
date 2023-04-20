@@ -86,7 +86,7 @@ async def recoginze(
 
         fig, axs = plt.subplots()
         axs.imshow(plot[:,:,::-1])
-        axs.set_title(f"Количество деревьев на изображении: {boxes_count}")
+
         axs.set_xticks([])
         axs.set_yticks([])
 
