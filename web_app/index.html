@@ -1,18 +1,26 @@
-<html>
-
-<body>
-    <h1>See-tree: система обработки изображений лесов</h1>
-    <form action="http://localhost:8080/api/v1/recognize" method="post" enctype="multipart/form-data">
-        <div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>See-tree: система обработки изображений лесов</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>See-tree: система обработки изображений лесов</h1>
+      </header>
+      <main>
+        <form action="http://localhost:8080/api/v1/recognize" method="post" enctype="multipart/form-data">
+          <div class="form-group">
             <label for="file">Выберите изображение для обработки:</label>
-            <br></br>
-            <input type="file" id="file" name="file" accept=".jpg, .jpeg" />
-        </div>
-        <br></br>
-        <div>
-            <button>Отправить</button>
-        </div>
-    </form>
-</body>
-
+            <input type="file" id="file" name="file" accept=".jpg, .jpeg">
+          </div>
+          <div class="form-group">
+            <button type="submit">Отправить</button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </body>
 </html>
