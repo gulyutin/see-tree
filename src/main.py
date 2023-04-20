@@ -1,3 +1,11 @@
+import ssl
+import certifi
+
+ssl_context = ssl.create_default_context(cafile=certifi.where())
+ssl_context.set_default_verify_paths()
+ssl._create_default_https_context = ssl._create_unverified_context
+
+
 import io
 
 import uvicorn
