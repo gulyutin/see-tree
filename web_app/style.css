@@ -4,15 +4,16 @@ body {
     font-family: sans-serif;
     }
     
+
 .container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 5px; 
     }
     
- header {
+header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 10px; 
     }
     
 .logo {
@@ -25,7 +26,7 @@ body {
     }
     
 form {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     }
     
  form input[type="file"] {
@@ -78,13 +79,13 @@ img {
     }
     
 .small-logo {
-    width: 150px; /* или любой другой размер, который вам подходит */
+    width: 100px; /* или любой другой размер, который вам подходит */
     height: auto;
     }
     
 @media only screen and (max-width: 600px) {
     .container {
-    padding: 10px;
+    padding: 5px;
     }
     
 table {
@@ -96,3 +97,4 @@ td,
     padding: 5px;
     }
     }
+
