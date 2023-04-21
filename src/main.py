@@ -71,22 +71,23 @@ async def recoginze(
         # image.save('orig.jpg', 'JPEG', quality=50)
         print(image.format, image.size, image.mode)
 
-        # plt.show()
-        rcParams['figure.figsize'] = 20, 40
+        # rcParams['figure.figsize'] = 1, 1
 
         numpydata = np.asarray(image)
-        numpydata = numpydata.astype('float32')
 
         boxes = model.predict_image(numpydata)
         boxes.head()
 
-        boxes_count = len(boxes)
+        if len(boxes):
+            boxes_count = len(boxes)
+        else:
+            boxes_count = -1
 
         plot = model.predict_image(numpydata, return_plot=True, thickness=3)
 
         fig, axs = plt.subplots()
         axs.imshow(plot[:,:,::-1])
-
+        # axs.set_title(f"Количество деревьев на изображении: {boxes_count}")
         axs.set_xticks([])
         axs.set_yticks([])
 
@@ -100,13 +101,7 @@ async def recoginze(
         bytes_img = data.reshape((int(h), int(w), -1))
 
         result_image = Image.fromarray(bytes_img).convert('RGB')
-        new_image = Image.new('RGB', (result_image.height, result_image.width), color=(255, 255, 255))
-        x = (new_image.width - result_image.width) // 2
-        y = (new_image.height - result_image.height) // 2
-        new_image.paste(result_image, (x, y))
-        result_image = new_image
-        # image.save('out.jpg', 'JPEG', quality=50)
-
+        result_image.save('out.jpg', 'JPEG', quality=100)
         
         with io.BytesIO() as buf:
             result_image.save(buf, format='JPEG')
@@ -116,7 +111,7 @@ async def recoginze(
         # headers = {'Content-Disposition': 'inline; filename="test.png"'}
         return Response(im_bytes, headers=headers, media_type='image/jpeg')
     except Exception as e:
-        logger.error(e)
+        print(e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal error"
@@ -136,3 +131,4 @@ if __name__ == '__main__':
         log_config=log_config,
         reload=True,
     )
+

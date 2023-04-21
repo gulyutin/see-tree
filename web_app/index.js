@@ -1,6 +1,6 @@
 const axios = window.axios;
 
-$(function () {
+$(() => {
     const form = $("#form");
     const fileInput = $("#file");
     const submitBtn = $("#submit-btn");
@@ -9,7 +9,42 @@ $(function () {
     const progressBarUploadBar = $("#progressBarUploadBar");
     const result = $("#result");
 
-    submitBtn.on("click", function (e) {
+
+    function handleError(error) {
+        console.error("Произошла ошибка: " + error);
+        submitBtn.prop("disabled", false);
+        progressBarUploadDiv.hide();
+    }
+
+    async function getData(formData) {
+        try {
+            const response = await axios.post("http://localhost:8080/api/v1/recognize", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                onUploadProgress: function (e) {
+                    if (e.event.lengthComputable) {
+                        const percent = (e.event.loaded / e.event.total) * 100;
+                        progressBarUploadBar.attr("aria-valuenow", percent).css("width", percent + "%");
+                    }
+                },
+                responseType: 'blob',
+            })
+            if (response.status != 200) {
+                // test for status you want, etc
+                console.log(response.status)
+                throw new Error();
+            }
+            // Don't forget to return something   
+            return response
+        }
+        catch (error) {
+            handleError(error);
+            console.error(error);
+        }
+    }
+
+    submitBtn.on("click", async (e) => {
         submitBtn.prop("disabled", true);
         form.hide();
         progressBarUploadDiv.show();
@@ -18,32 +53,18 @@ $(function () {
         const formData = new FormData();
         formData.append("file", file);
 
-
-        axios
-            .post("http://localhost:8080/api/v1/recognize", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                onUploadProgress: function (e) {
-                    if (e.lengthComputable) {
-                        const percent = (e.loaded / e.total) * 100;
-                        progressBarUploadBar.css("width", percent + "%");
-                    }
-                },
-                responseType: 'blob',
-            })
-            .then(function (response) {
+        getData(formData)
+            .then((response) => {
                 progressBarUploadDiv.hide()
                 goBackBtn.show();
-                const headers = {};
-                Object.keys(response.headers).forEach(key => headers[key.toLowerCase()] = response.headers[key]);
-                const treeCount = headers["df-boxes-count"];
+                const treeCount = response.headers["df-boxes-count"];
                 const urlCreator = window.URL || window.webkitURL;
                 const imageUrl = urlCreator.createObjectURL(response.data);
                 const img = new Image();
                 img.onload = function () {
+                    result.empty();
                     result.append(`<p>Количество деревьев на изображении: ${treeCount}</p>`);
-                    result.empty().append(img);
+                    result.append(img);
                     submitBtn.prop("disabled", false);
                 };
                 img.src = imageUrl;
@@ -56,8 +77,10 @@ $(function () {
             });
     });
 
-    goBackBtn.on("click", function (e) {
+    goBackBtn.on("click", async (e) => {
         form.show();
+        result.hide();
+        fileInput.val("");
         goBackBtn.hide();
     });
 });
