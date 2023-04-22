@@ -2,36 +2,35 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    }
+}
     
-
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 5px; 
-    }
+}
     
 header {
     text-align: center;
     margin-bottom: 10px; 
-    }
+}
     
 .logo {
     text-align: center;
-    }
+}
     
 .logo-img {
     max-width: 50px;
     height: auto;
-    }
+}
     
 form {
     margin-bottom: 5px;
-    }
+}
     
  form input[type="file"] {
     display: none;
-    }
+}
     
 form label {
     background-color: #333;
@@ -39,62 +38,62 @@ form label {
     display: inline-block;
     padding: 10px 20px;
     cursor: pointer;
-    }
+}
     
 form label:hover {
-    background-color: #444;
-    }
-    
-    form button {
-    background-color: #333;
+    background-color: #555;
+}
+
+#submit-btn {
+    background-color: #007bff;
+    border-color: #007bff;
     color: #fff;
     display: inline-block;
     padding: 10px 20px;
-    border: none;
     cursor: pointer;
-    }
-    
-form button:hover {
-    background-color: #444;
-    }
-    
-img {
+}
+
+#submit-btn:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+#progressBarUploadDiv {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#progressBarUploadBar {
+    background-color: #007bff;
+}
+
+#go-back-btn {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#go-back-btn:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.result-img {
     max-width: 100%;
     height: auto;
-    }
-    
-.image-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-    }
-    
-.image-container img {
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    }
-    
-.small-logo {
-    width: 100px; /* или любой другой размер, который вам подходит */
-    height: auto;
-    }
-    
-@media only screen and (max-width: 600px) {
-    .container {
-    padding: 5px;
-    }
-    
-table {
-    width: 100%;
-    }
-    
-td,
-    th {
-    padding: 5px;
-    }
-    }
+    margin-top: 20px;
+}
 
+.form-group {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.responsive-img {
+    max-width: 100%;
+    height: auto;
+}

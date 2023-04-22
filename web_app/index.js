@@ -9,7 +9,6 @@ $(() => {
     const progressBarUploadBar = $("#progressBarUploadBar");
     const result = $("#result");
 
-
     function handleError(error) {
         console.error("Произошла ошибка: " + error);
         submitBtn.prop("disabled", false);
@@ -18,7 +17,7 @@ $(() => {
 
     async function getData(formData) {
         try {
-            const response = await axios.post("http://localhost:8080/api/v1/recognize", formData, {
+            const response = await axios.post("https://0612-2a0d-5600-44-4000-00-136a.ngrok-free.app/api/v1/recognize", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -64,6 +63,7 @@ $(() => {
                 img.onload = function () {
                     result.empty();
                     result.append(`<p>Количество деревьев на изображении: ${treeCount}</p>`);
+                    img.width = 1000; // Задайте желаемую ширину изображения
                     result.append(img);
                     submitBtn.prop("disabled", false);
                 };
