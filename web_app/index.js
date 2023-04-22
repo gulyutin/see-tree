@@ -8,6 +8,8 @@ $(() => {
     const progressBarUploadDiv = $("#progressBarUploadDiv");
     const progressBarUploadBar = $("#progressBarUploadBar");
     const result = $("#result");
+    const treeCount = $("#tree-count");
+    const resultImg = $("#result-img");
 
     function handleError(error) {
         console.error("Произошла ошибка: " + error);
@@ -30,11 +32,9 @@ $(() => {
                 responseType: 'blob',
             })
             if (response.status != 200) {
-                // test for status you want, etc
                 console.log(response.status)
                 throw new Error();
             }
-            // Don't forget to return something   
             return response
         }
         catch (error) {
@@ -56,18 +56,16 @@ $(() => {
             .then((response) => {
                 progressBarUploadDiv.hide()
                 goBackBtn.show();
-                const treeCount = response.headers["df-boxes-count"];
+                const treeCountValue = response.headers["df-boxes-count"];
                 const urlCreator = window.URL || window.webkitURL;
                 const imageUrl = urlCreator.createObjectURL(response.data);
-                const img = new Image();
-                img.onload = function () {
-                    result.empty();
-                    result.append(`<p>Количество деревьев на изображении: ${treeCount}</p>`);
-                    img.width = 1000; // Задайте желаемую ширину изображения
-                    result.append(img);
+                resultImg[0].onload = function () {
+                    treeCount.html(`Количество деревьев на изображении: ${treeCountValue}`);
+                    resultImg[0].width = 1000;
+                    result.show();
                     submitBtn.prop("disabled", false);
                 };
-                img.src = imageUrl;
+                resultImg[0].src = imageUrl;
             })
             .catch(function (error) {
                 console.error("Произошла ошибка: " + error);
