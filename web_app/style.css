@@ -33,3 +33,13 @@ body {
 .form-group {
     margin: 0 10px;
 }
+
+@media (max-width: 576px) {
+    .py-5 h4 {
+        font-size: 1.5rem;
+    }
+    
+    .footer .lead {
+        font-size: 0.6rem;
+    }
+}

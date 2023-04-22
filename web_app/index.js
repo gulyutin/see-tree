@@ -19,7 +19,7 @@ $(() => {
 
     async function getData(formData) {
         try {
-            const response = await axios.post("https://0612-2a0d-5600-44-4000-00-136a.ngrok-free.app/api/v1/recognize", formData, {
+            const response = await axios.post("https://c3de-193-218-138-88.ngrok-free.app/api/v1/recognize", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -81,4 +81,5 @@ $(() => {
         fileInput.val("");
         goBackBtn.hide();
     });
+    
 });
