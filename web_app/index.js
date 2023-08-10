@@ -19,7 +19,7 @@ $(() => {
 
     async function getData(formData) {
         try {
-            const response = await axios.post("https://taiga.enisey.tech", formData, {
+            const response = await axios.post("https://taiga.enisey.tech/api/v1/recognize", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
